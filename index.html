@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Phone Book</title>
+
+    <link type="text/css" rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<h1>Phone Book</h1>
+<div id="add-contact">
+    <h4>Add contact</h4>
+    <form id="new-contact-form">
+        <label for="phone-number">Phone Number: </label>
+        <input type="text" id="phone-number" placeholder="Enter Phone number:"/>
+
+        <label for="first-name">First Name:</label>
+        <input type="text" id="first-name" placeholder="Enter First Name:"/>
+
+        <label for="last-name">Last-Name</label>
+        <input type="text" id="last-name" placeholder="Enter Last Name:"/>
+
+        <input type="submit" value="Save contact"/>
+    </form>
+</div>
+
+<div>
+    <table id="contacts-table">
+        <thead>
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Phone number</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr>
+            <td>Ioana</td>
+            <td>Popescu</td>
+            <td>0745555511</td>
+            <td><a href="#" data-id="1" class="delete-contact"><button>Delete</button></a></td>
+
+        </tr>
+        <tr>
+            <td>Cristi</td>
+            <td>Popescu</td>
+            <td>0741715511</td>
+            <td><a href="#" data-id="1" class="delete-contact"><button>Delete</button></a></td>
+
+        </tr>
+        <tr>
+            <td>Ioana</td>
+            <td>Ionescu</td>
+            <td>074825511</td>
+            <td><a href="#" data-id="1" class="delete-contact"><button>Delete</button></a></td>
+
+        </tr>
+        </tbody>
+
+    </table>
+</div>
+</body>
+</html>
