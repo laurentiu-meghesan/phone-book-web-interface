@@ -2,7 +2,7 @@
     font-family: "Lucida Bright", Arial, Helvetica, sans-serif;
     border-collapse: collapse;
     width: 100%;
-    margin-top: 30px;
+    margin-top: 50px;
 }
 
 #contacts-table td, #contacts-table th {
@@ -11,6 +11,7 @@
 }
 
 #contacts-table tr:nth-child(even){background-color: #f2efa5;}
+#contacts-table tr:nth-child(odd){background-color: #c9f2e0;}
 
 #contacts-table tr:hover {background-color: #ddd;}
 
@@ -25,4 +26,8 @@
 #add-contact {
     font-family: "Lucida Bright", Arial, Helvetica, sans-serif;
     background-color: #cff8ff;
+    padding-top: 2px;
+    padding-right: 5px;
+    padding-bottom: 15px;
+    padding-left: 8px;
 }
