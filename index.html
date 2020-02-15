@@ -9,7 +9,7 @@
         }
     </style>
     <link type="text/css" rel="stylesheet" href="css/style.css">
-    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -17,14 +17,14 @@
 <div id="add-contact">
     <h4>Add contact</h4>
     <form id="new-contact-form">
-        <label for="phone-number">Phone Number: </label>
-        <input type="text" id="phone-number" placeholder="Enter Phone number:"/>
+        <label for="phoneNumber-field">Phone Number: </label>
+        <input type="text" id="phoneNumber-field" placeholder="Enter Phone number:"/>
 
-        <label for="first-name">First Name:</label>
-        <input type="text" id="first-name" placeholder="Enter First Name:"/>
+        <label for="firstName-field">First Name:</label>
+        <input type="text" id="firstName-field" placeholder="Enter First Name:"/>
 
-        <label for="last-name">Last-Name</label>
-        <input type="text" id="last-name" placeholder="Enter Last Name:"/>
+        <label for="lastName-field">Last-Name</label>
+        <input type="text" id="lastName-field" placeholder="Enter Last Name:"/>
 
         <input type="submit" value="Save contact"/>
     </form>
@@ -42,27 +42,7 @@
         </thead>
 
         <tbody>
-        <tr>
-            <td>Ioana</td>
-            <td>Popescu</td>
-            <td>0745555511</td>
-            <td><a href="#" data-id="1" class="delete-contact"><button>Delete</button></a></td>
-
-        </tr>
-        <tr>
-            <td>Cristi</td>
-            <td>Popescu</td>
-            <td>0741715511</td>
-            <td><a href="#" data-id="1" class="delete-contact"><button>Delete</button></a></td>
-
-        </tr>
-        <tr>
-            <td>Silviu</td>
-            <td>Ionescu</td>
-            <td>074825511</td>
-            <td><a href="#" data-id="1" class="delete-contact"><button>Delete</button></a></td>
-
-        </tr>
+        
         </tbody>
 
     </table>
