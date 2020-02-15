@@ -43,7 +43,7 @@ window.PhoneBook = {
         })
     },
 
-    updateContact: function(id){
+    updateContact: function (id) {
 
         $.ajax({
             url: PhoneBook.API_BASE_URL + "?id=" + id,
@@ -61,7 +61,11 @@ window.PhoneBook = {
             <td>${contact.firstName}</td>
             <td>${contact.lastName}</td>
             <td>${contact.phoneNumber}</td>
-            <td><a href="#" data-id=${contact.id} class="delete-contact"><i class="fas fa-user-slash"></i></a></td>
+            <td>
+            <a href="#" data-id=${contact.id} class="update-contact"><i class="fas fa-user-edit"></i></a>
+            
+            <a href="#" data-id=${contact.id} class="delete-contact"><i class="fas fa-user-slash"></i></a>
+            </td>
         </tr>`
     },
 
@@ -80,6 +84,8 @@ window.PhoneBook = {
 
             PhoneBook.createContact();
         });
+
+        $("#contacts-table").delegate("")
 
 
         $("#contacts-table").delegate(".delete-contact", "click", function (event) {

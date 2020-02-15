@@ -18,14 +18,14 @@
 #contacts-table th {
     padding-top: 12px;
     padding-bottom: 12px;
-    /*text-align: center;*/
+    text-align: left;
     background-color: #1892af;
     color: white;
 }
 
-#contacts-table tr{
-    /*text-align: center;*/
-}
+/*#contacts-table tr{*/
+    /*text-align: center;
+}*/
 
 #add-contact {
     font-family: "Lucida Bright", Arial, Helvetica, sans-serif;
