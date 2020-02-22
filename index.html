@@ -8,9 +8,13 @@
             background-image: url("https://previews.123rf.com/images/brat82/brat821301/brat82130100051/17627838-old-vintage-phone-book-on-wooden-table-grunge-background.jpg");
         }
     </style>
+
     <link type="text/css" rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<!--    <link rel="icon" href=<i class="fas fa-address-card"></i>-->
+    <link rel="icon" href=<i class="fas fa-address-card">
 </head>
+
 <body>
 
 <h1>Phone Book</h1>
@@ -23,15 +27,23 @@
         <label for="firstName-field">First Name:</label>
         <input type="text" id="firstName-field" placeholder="Enter First Name:"/>
 
-        <label for="lastName-field">Last-Name</label>
+        <label for="lastName-field">Last Name</label>
         <input type="text" id="lastName-field" placeholder="Enter Last Name:"/>
 
         <input type="submit" value="Save contact"/>
     </form>
 </div>
 
-<div>
-    <table id="contacts-table">
+<div id="content">
+
+    <form class="add-form" action="" onsubmit="return false" method="post">
+
+        <div id="search-delete" style="padding-top: 40px">
+            <input type="text" id="search" placeholder="Search">
+            <label for="search">&#128270;</label>
+            <input type="button" value="Delete all contacts" style="float: right;" class="delete-button">
+        </div>
+    <table id="contacts-table" style="margin-top: 2px">
         <thead>
         <tr>
             <th>First Name</th>
@@ -42,10 +54,23 @@
         </thead>
 
         <tbody>
-        
+
         </tbody>
 
+        <tfoot>
+        <tr>
+            <td><input type="text" required name="firstName" placeholder="Enter first name"></td>
+            <td><input type="text" required name="lastName" placeholder="Enter last name"></td>
+            <td><input type="text" required name="phone" placeholder="Enter phone"></td>
+            <td>
+                <button type="submit" title="Save">&#128190;</button>
+                <button type="reset" onclick="PhoneBook.cancelEdit()" title="Cancel">&#10006;</button>
+            </td>
+        </tr>
+        </tfoot>
+
     </table>
+    </form>
 </div>
 
 <script src="js/lib/jquery-3.4.1.js"></script>

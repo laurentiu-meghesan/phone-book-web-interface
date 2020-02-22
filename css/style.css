@@ -4,12 +4,21 @@
     width: 100%;
     margin-top: 50px;
 }
+ .delete-button {
+    background-color: #f44336;
+    border: none;
+    color: white;
+    padding: 3px 4px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+}
 
 #contacts-table td, #contacts-table th {
     border: 1px solid #ddd;
     padding: 7px;
 }
-
 #contacts-table tr:nth-child(even){background-color: #f2efa5;}
 #contacts-table tr:nth-child(odd){background-color: #c9f2e0;}
 
@@ -22,10 +31,6 @@
     background-color: #1892af;
     color: white;
 }
-
-/*#contacts-table tr{*/
-    /*text-align: center;
-}*/
 
 #add-contact {
     font-family: "Lucida Bright", Arial, Helvetica, sans-serif;
