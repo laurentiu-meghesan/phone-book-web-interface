@@ -1,5 +1,6 @@
 var editId;
 var contacts = [];
+
 window.PhoneBook = {
 
     API_BASE_URL: "http://localhost:8082/agenda",
@@ -23,13 +24,13 @@ window.PhoneBook = {
         })
     },
 
-    deleteAllContacts: function(){
-      $.ajax({
-          url: PhoneBook.API_BASE_URL,
-          method: "DELETE"
-      }).done(function () {
-          PhoneBook.getContacts();
-      })
+    deleteAllContacts: function () {
+        $.ajax({
+            url: PhoneBook.API_BASE_URL,
+            method: "DELETE"
+        }).done(function () {
+            PhoneBook.getContacts();
+        })
     },
 
     createContact: function () {
@@ -56,11 +57,21 @@ window.PhoneBook = {
 
     editContact: function (id) {
 
+        let firstNameValue = $("#firstName").val();
+        let lastNameValue = $("#lastName").val();
+        let phoneNumberValue = $("#phone").val();
+
+        let requestBody = {
+            firstName: firstNameValue,
+            lastName: lastNameValue,
+            phoneNumber: phoneNumberValue
+        };
+
         $.ajax({
             url: PhoneBook.API_BASE_URL + "?id=" + id,
             method: "PUT",
             contentType: "application/json",
-            data: id
+            data: JSON.stringify(requestBody)
 
         }).done(function (response) {
             if (response.success) {
@@ -96,23 +107,20 @@ window.PhoneBook = {
 
     bindEvents: function () {
 
-        $("#contacts-table tbody").delegate('a.edit', 'click', function () {
+        $("#contacts-table").delegate('.edit', 'click', function () {
             var id = $(this).data('id');
             PhoneBook.startEdit(id);
         });
 
         $("#new-contact-form").submit(function (event) {
             event.preventDefault();
-
             PhoneBook.createContact();
         });
 
-        $("#search-delete").delegate(".delete-button","click", function () {
+        $("#search-delete").delegate(".delete-button", "click", function () {
             event.preventDefault();
-
             PhoneBook.deleteAllContacts();
-        });
-
+        })
 
         $("#contacts-table").delegate(".delete-contact", "click", function (event) {
             event.preventDefault();
@@ -121,27 +129,41 @@ window.PhoneBook = {
             PhoneBook.deleteContact(contactId);
         });
 
-        $("#add-form").submit(function() {
+        $("#add-form").submit(function (event) {
+            event.preventDefault();
             const contact = {
                 firstName: $('input[name=firstName]').val(),
                 lastName: $('input[name=lastName]').val(),
-                phoneNumber: $('input[name=phoneNumber]').val()
+                phoneNumber: $('input[name=phoneNumber]').val(),
             };
+
+            let id = $(this).data("id");
 
             if (editId) {
                 contact.id = editId;
-                PhoneBook.update(contact);
+                PhoneBook.editContact(contact);
             } else {
-                PhoneBook.add(contact);
+                PhoneBook.createContact(contact);
             }
         });
 
-        document.getElementById('search').addEventListener('input', function(ev) {
-            //const value = document.getElementById('search').value;
-            const value = this.value;
-            PhoneBook.search(value);
+        $('#search').keyup(function () {
+
+            var $rows = $('#contacts-table tbody tr')
+            var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
+
+            $rows.show().filter(function () {
+                var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
+                return !~text.indexOf(val);
+            }).hide();
         });
-        document.querySelector('.add-form').addEventListener('reset', function(ev) {
+
+        /*     document.getElementById('search').addEventListener('input', function() {
+                 //const value = document.getElementById('search').value;
+                 const value = this.value;
+                 PhoneBook.search(value);
+             });*/
+        document.querySelector('.add-form').addEventListener('reset', function () {
             PhoneBook.search("");
         });
 
@@ -158,24 +180,15 @@ window.PhoneBook = {
         $('input[name=lastName]').val(editContact.lastName);
         $('input[name=phone]').val(editContact.phone);
         editId = id;
+        PhoneBook.editContact(id);
+        PhoneBook.getContacts();
+
     },
 
     cancelEdit: function () {
         editId = '';
-        document.querySelector(".add-form").reset();
-        PhoneBook.displayContacts(contacts);
-    },
-
-    search: function (value) {
-        value = value.toLowerCase();
-
-        var filtered = contacts.filter(function (contact) {
-            return contact.firstName.toLowerCase().includes(value) ||
-                contact.lastName.toLowerCase().includes(value) ||
-                contact.phone.toLowerCase().includes(value);
-        });
-
-        PhoneBook.displayContacts(filtered);
+        document.querySelector('.add-form').reset();
+        PhoneBook.getContacts();
     },
 
 };
@@ -189,22 +202,18 @@ window.PhoneBookLocalActions = {
     add: contact => {
         contact.id = new Date().getTime();
         contacts.push(contact);
-        PhoneBook.displayContacts(contacts);
+        PhoneBook.getContacts();
     },
-    delete: id => {
-        var remainingContacts = contacts.filter(person => person.id !== id);
-        window.contacts = remainingContacts;
-        PhoneBook.displayContacts(remainingContacts);
-    },
+
     update: contact => {
         const id = contact.id;
         var contactToUpdate = contacts.find(contact => contact.id === id);
         contactToUpdate.firstName = contact.firstName;
         contactToUpdate.lastName = contact.lastName;
         contactToUpdate.phoneNumber = contact.phoneNumber;
-        PhoneBook.displayContacts(contact);
+        PhoneBook.getContacts();
     }
-}
+};
 
 console.info('loading contacts');
 PhoneBook.getContacts();

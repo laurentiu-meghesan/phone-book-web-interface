@@ -12,7 +12,6 @@
     <link type="text/css" rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
 <!--    <link rel="icon" href=<i class="fas fa-address-card"></i>-->
-    <link rel="icon" href=<i class="fas fa-address-card">
 </head>
 
 <body>
@@ -36,10 +35,10 @@
 
 <div id="content">
 
-    <form class="add-form" action="" onsubmit="return false" method="post">
+    <form class="add-form" action="" onsubmit="return false" method="POST">
 
         <div id="search-delete" style="padding-top: 40px">
-            <input type="text" id="search" placeholder="Search">
+            <input type="text" id="search" placeholder="Search contact">
             <label for="search">&#128270;</label>
             <input type="button" value="Delete all contacts" style="float: right;" class="delete-button">
         </div>
@@ -59,9 +58,9 @@
 
         <tfoot>
         <tr>
-            <td><input type="text" required name="firstName" placeholder="Enter first name"></td>
-            <td><input type="text" required name="lastName" placeholder="Enter last name"></td>
-            <td><input type="text" required name="phone" placeholder="Enter phone"></td>
+            <td><input type="text" id ="firstName" placeholder="Enter first name"></td>
+            <td><input type="text" id ="lastName" placeholder="Enter last name"></td>
+            <td><input type="text" id ="phone" placeholder="Enter phone"></td>
             <td>
                 <button type="submit" title="Save">&#128190;</button>
                 <button type="reset" onclick="PhoneBook.cancelEdit()" title="Cancel">&#10006;</button>
