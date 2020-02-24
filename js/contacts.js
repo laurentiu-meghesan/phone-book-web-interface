@@ -1,6 +1,3 @@
-var editId;
-var contacts = [];
-
 window.PhoneBook = {
 
     API_BASE_URL: "http://localhost:8082/agenda",
@@ -67,18 +64,17 @@ window.PhoneBook = {
             phoneNumber: phoneNumberValue
         };
 
+        console.log(requestBody);
+
         $.ajax({
             url: PhoneBook.API_BASE_URL + "?id=" + id,
             method: "PUT",
             contentType: "application/json",
             data: JSON.stringify(requestBody)
 
-        }).done(function (response) {
-            if (response.success) {
-                PhoneBook.cancelEdit();
-                PhoneBookLocalActions.update(id)
-                PhoneBook.getContacts();
-            }
+        }).done(function () {
+            PhoneBook.getContacts();
+            PhoneBook.cancelEdit();
         })
     },
 
@@ -98,18 +94,33 @@ window.PhoneBook = {
 
     displayContacts: function (contacts) {
         var tableBody = '';
-
-        contacts.forEach(contact => tableBody += PhoneBook.getContactRow(contact))
-
+        contacts.forEach(contact => tableBody += PhoneBook.getContactRow(contact));
         $("#contacts-table tbody").html(tableBody);
     },
 
-
     bindEvents: function () {
 
-        $("#contacts-table").delegate('.edit', 'click', function () {
-            var id = $(this).data('id');
-            PhoneBook.startEdit(id);
+        var firstName, lastName, phoneNumber, id;
+
+        $("#contacts-table").on("click", ".edit", function () {
+
+            id = $(this).data('id');
+            var currentRow = $(this).closest("tr");
+
+            firstName = currentRow.find("td:eq(0)").text();
+            lastName = currentRow.find("td:eq(1)").text();
+            phoneNumber = currentRow.find("td:eq(2)").text();
+
+            document.getElementById("firstName").value = firstName;
+            document.getElementById("lastName").value = lastName;
+            document.getElementById("phone").value = phoneNumber;
+
+        });
+
+        $("#save-button").click(function (event) {
+            event.preventDefault();
+            console.log("Edited contact nr." + id + " : " + firstName + " " + lastName + " " + phoneNumber);
+            PhoneBook.editContact(id);
         });
 
         $("#new-contact-form").submit(function (event) {
@@ -117,40 +128,21 @@ window.PhoneBook = {
             PhoneBook.createContact();
         });
 
-        $("#search-delete").delegate(".delete-button", "click", function () {
+        $("#search-delete").delegate(".delete-button", "click", function (event) {
             event.preventDefault();
             PhoneBook.deleteAllContacts();
-        })
+        });
 
         $("#contacts-table").delegate(".delete-contact", "click", function (event) {
             event.preventDefault();
             let contactId = $(this).data("id");
-
             PhoneBook.deleteContact(contactId);
-        });
-
-        $("#add-form").submit(function (event) {
-            event.preventDefault();
-            const contact = {
-                firstName: $('input[name=firstName]').val(),
-                lastName: $('input[name=lastName]').val(),
-                phoneNumber: $('input[name=phoneNumber]').val(),
-            };
-
-            let id = $(this).data("id");
-
-            if (editId) {
-                contact.id = editId;
-                PhoneBook.editContact(contact);
-            } else {
-                PhoneBook.createContact(contact);
-            }
         });
 
         $('#search').keyup(function () {
 
-            var $rows = $('#contacts-table tbody tr')
-            var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
+            let $rows = $('#contacts-table tbody tr');
+            let val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
 
             $rows.show().filter(function () {
                 var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
@@ -158,61 +150,18 @@ window.PhoneBook = {
             }).hide();
         });
 
-        /*     document.getElementById('search').addEventListener('input', function() {
-                 //const value = document.getElementById('search').value;
-                 const value = this.value;
-                 PhoneBook.search(value);
-             });*/
-        document.querySelector('.add-form').addEventListener('reset', function () {
-            PhoneBook.search("");
-        });
-
-    },
-
-    startEdit: function (id) {
-        var editContact = contacts.find(function (contact) {
-            console.log(contact.firstName);
-            return contact.id == id;
-        });
-        console.debug('startEdit', editContact);
-
-        $("input[name=firstName]").val(editContact.firstName);
-        $('input[name=lastName]').val(editContact.lastName);
-        $('input[name=phone]').val(editContact.phone);
-        editId = id;
-        PhoneBook.editContact(id);
-        PhoneBook.getContacts();
-
     },
 
     cancelEdit: function () {
-        editId = '';
         document.querySelector('.add-form').reset();
         PhoneBook.getContacts();
     },
 
-};
-
-window.PhoneBookLocalActions = {
-    load: (contacts) => {
-        // save in persons as global variable
-        window.contacts = contacts;
-    },
-    // ES6 functions (one param - no need pharanteses for arguments)
-    add: contact => {
-        contact.id = new Date().getTime();
-        contacts.push(contact);
-        PhoneBook.getContacts();
-    },
-
-    update: contact => {
-        const id = contact.id;
-        var contactToUpdate = contacts.find(contact => contact.id === id);
-        contactToUpdate.firstName = contact.firstName;
-        contactToUpdate.lastName = contact.lastName;
-        contactToUpdate.phoneNumber = contact.phoneNumber;
+    cancelAdd: function () {
+        document.querySelector('.new-contact-form').reset();
         PhoneBook.getContacts();
     }
+
 };
 
 console.info('loading contacts');

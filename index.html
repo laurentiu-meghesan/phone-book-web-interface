@@ -30,6 +30,8 @@
         <input type="text" id="lastName-field" placeholder="Enter Last Name:"/>
 
         <input type="submit" value="Save contact"/>
+        <button type="reset" onclick="PhoneBook.cancelAdd()" title="Cancel"><i class="fas fa-window-close"></i></button>
+
     </form>
 </div>
 
@@ -39,7 +41,7 @@
 
         <div id="search-delete" style="padding-top: 40px">
             <input type="text" id="search" placeholder="Search contact">
-            <label for="search">&#128270;</label>
+            <label for="search"></label>
             <input type="button" value="Delete all contacts" style="float: right;" class="delete-button">
         </div>
     <table id="contacts-table" style="margin-top: 2px">
@@ -60,10 +62,10 @@
         <tr>
             <td><input type="text" id ="firstName" placeholder="Enter first name"></td>
             <td><input type="text" id ="lastName" placeholder="Enter last name"></td>
-            <td><input type="text" id ="phone" placeholder="Enter phone"></td>
+            <td><input type="text" id ="phone" placeholder="Enter phone number"></td>
             <td>
-                <button type="submit" title="Save">&#128190;</button>
-                <button type="reset" onclick="PhoneBook.cancelEdit()" title="Cancel">&#10006;</button>
+                <button type="submit" id="save-button" title="Save"><i class="fas fa-save"></i></button>
+                <button type="reset" onclick="PhoneBook.cancelEdit()" title="Cancel"><i class="fas fa-window-close"></i></button>
             </td>
         </tr>
         </tfoot>
